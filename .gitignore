@@ -45,3 +45,6 @@ coverage/
 .cache/
 .parcel-cache
 .eslintcache
+node_modules/
+dist/
+.env
