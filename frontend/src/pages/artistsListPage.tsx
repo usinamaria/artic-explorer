@@ -73,7 +73,7 @@ export default function ArtistsListPage() {
     <Layout>
       <div className="bg-white dark:bg-dark-bg">
         <div className="page-container py-6 md:py-16">
-          <h1 className="text-5xl mb-8">Artists</h1>
+          <h1 className="text-5xl mb-6">Artists</h1>
           <p className="text-base md:text-lg text-gallery-muted dark:text-dark-muted font-light">
               Discover and search master artists from around the world.
           </p>
@@ -93,7 +93,7 @@ export default function ArtistsListPage() {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setSearchTerm(e.target.value)
             }
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none "
           />
         </div>
 

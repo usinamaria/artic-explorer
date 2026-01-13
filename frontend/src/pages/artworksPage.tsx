@@ -24,17 +24,19 @@ export default function ArtworksPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [pagination, setPagination] = useState<Pagination | null>(null)
   const LIMIT = 12
 
   useEffect(() => {
     setCurrentPage(1)
-  }, [searchTerm])
+    fetchArtworks()
+  }, [debouncedSearchTerm])
 
   useEffect(() => {
     fetchArtworks()
-  }, [currentPage, searchTerm])
+  }, [currentPage])
 
   const fetchArtworks = async () => {
     try {
@@ -43,8 +45,8 @@ export default function ArtworksPage() {
       
       // If there's a search term, use the search API, otherwise use public domain
       let url: string
-      if (searchTerm) {
-        url = `/api/artworks/search?q=${encodeURIComponent(searchTerm)}&limit=${LIMIT}&page=${currentPage}`
+      if (debouncedSearchTerm) {
+        url = `/api/artworks/search?q=${encodeURIComponent(debouncedSearchTerm)}&limit=${LIMIT}&page=${currentPage}`
       } else {
         url = `/api/artworks/public-domain?limit=${LIMIT}&page=${currentPage}`
       }
@@ -85,10 +87,10 @@ export default function ArtworksPage() {
       <div className="bg-white dark:bg-dark-bg">
         {/* Page Header */}
         <section className="bg-white dark:bg-dark-bg">
-          <div className="page-container py-6 md:py-16">
+          <div className="page-container py-3 md:py-6">
             <div className="space-y-4 max-w-2xl">
               <h1 className="heading-lg text-5xl md:text-6xl text-gallery-text dark:text-dark-text">
-                Collection
+                Artworks
               </h1>
               <p className="text-base md:text-lg text-gallery-muted dark:text-dark-muted font-light">
                 Explore our curated selection from master artists around the world.
@@ -104,7 +106,13 @@ export default function ArtworksPage() {
               placeholder="Search artworks..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="form-input w-full md:max-w-lg"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setCurrentPage(1)
+                  setDebouncedSearchTerm(searchTerm)
+                }
+              }}
+              className="form-input w-full"
               aria-label="Search artworks"
             />
           </div>

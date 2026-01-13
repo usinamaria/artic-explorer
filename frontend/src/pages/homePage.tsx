@@ -70,10 +70,10 @@ export default function HomePage() {
     <Layout>
       <div className="bg-white dark:bg-dark-bg">
         {/* Hero Section */}
-        <div className="page-container py-12 md:py-16">
+        <div className="page-container py-2 md:py-16">
           <div className="relative overflow-hidden bg-white dark:bg-dark-bg rounded">
             {/* Content */}
-            <div className="flex flex-col items-center justify-start py-16 md:py-24 space-y-8 mx-auto px-4 md:px-8 max-w-2xl text-center">
+            <div className="flex flex-col items-center justify-start py-8 md:py-24 space-y-8 mx-auto px-4 md:px-8 max-w-2xl text-center">
               <div className="space-y-4">
                 <h1 className="heading-lg text-4xl md:text-5xl lg:text-6xl text-gallery-text dark:text-dark-text leading-none">
                   Art Institute

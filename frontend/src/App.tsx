@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import HomePage from './pages/homePage'
 import ArtistsListPage from './pages/artistsListPage'
 import ArtistDetailPage from './pages/artistDetailPage'
-import ArtistsPage from './pages/artistsPage'
+import ArtistsPage from './pages/artworksPage'
 import './App.css'
 
 function App() {

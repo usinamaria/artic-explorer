@@ -39,16 +39,17 @@ export default function ArtistDetailPage() {
       setError(null)
 
       // Search for artworks by this artist with pagination
-      const response = await fetch(
-        `/api/artworks/search?q=${encodeURIComponent(artistName)}&limit=${LIMIT}&page=${currentPage}`
-      )
+      const offset = (currentPage - 1) * LIMIT
+      const url = `/api/artworks/search?q=${encodeURIComponent(artistName)}&limit=${LIMIT}&offset=${offset}`
+      console.log('Fetching with:', { currentPage, offset, LIMIT, url })
+      const response = await fetch(url)
 
       if (!response.ok) {
         throw new Error('Failed to fetch artworks')
       }
 
       const data = await response.json()
-      console.log('Fetched artworks:', data)
+      console.log('Fetched artworks:', data, 'With pagination:', data.pagination)
       setArtworks(Array.isArray(data.data) ? data.data : [])
       setPagination(data.pagination || null)
     } catch (err) {
@@ -76,7 +77,7 @@ export default function ArtistDetailPage() {
             to="/artists"
             className="nav-link hover:text-accent transition-colors inline-flex items-center gap-2"
           >
-            ← Back to Collection
+            ← Back to Artworks
           </Link>
 
           {/* Artist Header */}
@@ -128,24 +129,24 @@ export default function ArtistDetailPage() {
 
               {/* Pagination */}
               {pagination && pagination.total_pages > 1 && (
-                <div className="flex items-center justify-center gap-8 pt-12 border-t border-gallery-border dark:border-dark-border">
+                <div className="flex items-center justify-center gap-6 mt-12 md:mt-16 py-6">
                   <button
                     onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                     disabled={currentPage === 1}
-                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="btn-secondary btn-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label="Previous page"
                   >
                     Previous
                   </button>
                   
                   <span className="text-sm text-gallery-muted dark:text-dark-muted font-light">
-                    Page <strong className="font-medium">{pagination.current_page}</strong> of <strong className="font-medium">{pagination.total_pages}</strong>
+                    Page <strong className="font-medium text-gallery-text dark:text-dark-text">{pagination.current_page}</strong> of <strong className="font-medium text-gallery-text dark:text-dark-text">{pagination.total_pages}</strong>
                   </span>
                   
                   <button
                     onClick={() => setCurrentPage(Math.min(pagination.total_pages, currentPage + 1))}
                     disabled={currentPage === pagination.total_pages}
-                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="btn-secondary btn-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label="Next page"
                   >
                     Next

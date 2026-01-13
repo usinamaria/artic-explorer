@@ -55,7 +55,7 @@ export default function Layout({ children }: LayoutProps) {
               to="/artworks"
               className={`nav-link inline-flex ${isActive('/artworks') && 'nav-link-active'}`}
             >
-              Collection
+              Artworks
             </Link>
             <Link
               to="/artists"
