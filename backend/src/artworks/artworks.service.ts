@@ -10,7 +10,7 @@ export class ArtworksService {
 
   constructor(private readonly httpService: HttpService) {}
 
-  async getArtworks(limit: number = 10, page: number = 1) {
+  async getArtworks(limit: number = 12, page: number = 1) {
     try {
       const url = `${this.baseUrl}/artworks?limit=${limit}&page=${page}&fields=id,title,artist_display,date_display,image_id,is_public_domain`;
       console.log("Fetching artworks from:", url);
@@ -61,9 +61,11 @@ export class ArtworksService {
     }
   }
 
-  async searchArtworks(query: string, limit: number = 10) {
+  async searchArtworks(query: string, limit: number = 10, offset: number = 0) {
     try {
-      const url = `${this.baseUrl}/artworks/search?q=${encodeURIComponent(query)}&limit=${limit}&fields=id,title,artist_display,date_display,image_id,is_public_domain`;
+      // Convert offset to page number (Artic API uses page, not offset)
+      const page = Math.floor(offset / limit) + 1;
+      const url = `${this.baseUrl}/artworks/search?q=${encodeURIComponent(query)}&limit=${limit}&page=${page}&fields=id,title,artist_display,date_display,image_id,is_public_domain`;
       console.log("Searching artworks:", url);
 
       const response = await firstValueFrom(

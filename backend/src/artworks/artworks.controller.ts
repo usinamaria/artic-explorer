@@ -7,7 +7,7 @@ export class ArtworksController {
 
   @Get()
   getArtworks(
-    @Query("limit") limit: string = "10",
+    @Query("limit") limit: string = "12",
     @Query("page") page: string = "1"
   ) {
     return this.artworksService.getArtworks(
@@ -17,16 +17,24 @@ export class ArtworksController {
   }
 
   @Get("search")
-  searchArtworks(@Query("q") query: string) {
+  searchArtworks(
+    @Query("q") query: string,
+    @Query("limit") limit: string = "12",
+    @Query("offset") offset: string = "0"
+  ) {
     if (!query) {
       return { error: "Query parameter is required" };
     }
-    return this.artworksService.searchArtworks(query);
+    return this.artworksService.searchArtworks(
+      query,
+      parseInt(limit),
+      parseInt(offset)
+    );
   }
 
   @Get("public-domain")
   getPublicDomainArtworks(
-    @Query("limit") limit: string = "10",
+    @Query("limit") limit: string = "12",
     @Query("page") page: string = "1"
   ) {
     return this.artworksService.getPublicDomainArtworks(
