@@ -39,7 +39,7 @@ export class ArtistsService {
 
   async getArtworksByArtistId(id: string) {
     try {
-      const url = `https://api.artic.edu/api/v1/artworks/search?query[term][artist_id]=${id}&fields=id,title,image_id,date_display&limit=10`;
+      const url = `https://api.artic.edu/api/v1/artworks/search?query[term][artist_id]=${id}&fields=id,title,image_id,date_display&limit=12`;
       console.log('Fetching from:', url);
       
       const response = await firstValueFrom(
