@@ -13,7 +13,6 @@ export class ArtworksService {
   async getArtworks(limit: number = 12, page: number = 1) {
     try {
       const url = `${this.baseUrl}/artworks?limit=${limit}&page=${page}&fields=id,title,artist_display,date_display,image_id,is_public_domain`;
-      console.log("Fetching artworks from:", url);
 
       const response = await firstValueFrom(
         this.httpService.get(url).pipe(
@@ -66,7 +65,6 @@ export class ArtworksService {
       // Convert offset to page number (Artic API uses page, not offset)
       const page = Math.floor(offset / limit) + 1;
       const url = `${this.baseUrl}/artworks/search?q=${encodeURIComponent(query)}&limit=${limit}&page=${page}&fields=id,title,artist_display,date_display,image_id,is_public_domain`;
-      console.log("Searching artworks:", url);
 
       const response = await firstValueFrom(
         this.httpService.get(url).pipe(
@@ -103,7 +101,6 @@ export class ArtworksService {
   async getPublicDomainArtworks(limit: number = 10, page: number = 1) {
     try {
       const url = `${this.baseUrl}/artworks/search?query[term][is_public_domain]=true&limit=${limit}&page=${page}&fields=id,title,artist_display,date_display,image_id`;
-      console.log("Fetching public domain artworks from:", url);
 
       const response = await firstValueFrom(
         this.httpService.get(url).pipe(
@@ -152,7 +149,6 @@ export class ArtworksService {
   async getArtworkById(id: string) {
     try {
       const url = `${this.baseUrl}/artworks/${id}?fields=id,title,artist_display,date_display,image_id,description,medium_display`;
-      console.log("Fetching artwork from:", url);
 
       const response = await firstValueFrom(
         this.httpService.get(url).pipe(

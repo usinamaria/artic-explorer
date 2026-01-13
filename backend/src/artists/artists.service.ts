@@ -11,7 +11,6 @@ export class ArtistsService {
   async getArtistById(id: string) {
     try {
       const url = `https://api.artic.edu/api/v1/artists/${id}`;
-      console.log('Fetching from:', url);
       
       const response = await firstValueFrom(
         this.httpService.get(url).pipe(
@@ -29,7 +28,6 @@ export class ArtistsService {
           })
         )
       );
-      console.log('Artist response:', response.data);
       return response.data;
     } catch (error: any) {
       console.error('Error fetching artist:', error.message || error);
@@ -40,7 +38,6 @@ export class ArtistsService {
   async getArtworksByArtistId(id: string) {
     try {
       const url = `https://api.artic.edu/api/v1/artworks/search?query[term][artist_id]=${id}&fields=id,title,image_id,date_display&limit=12`;
-      console.log('Fetching from:', url);
       
       const response = await firstValueFrom(
         this.httpService.get(url).pipe(
@@ -60,7 +57,6 @@ export class ArtistsService {
           })
         )
       );
-      console.log('Artworks response:', response.data);
       return response.data;
     } catch (error: any) {
       console.error('Error fetching artworks:', error.message || error);
